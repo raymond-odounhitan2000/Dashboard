@@ -25,13 +25,13 @@ jobs:
 
       - name: Build and push Laravel image
         run: |
-          docker build ./dashbord_api -t ${{ secrets.DOCKER_HUB_USERNAME }}/laravel-app:${{ github.ref_name }}
-      # docker push ${{ secrets.DOCKER_HUB_USERNAME }}/laravel-app:${{ github.ref_name }}
+          docker build ./dashbord_api -t ${{ secrets.DOCKER_HUB_USERNAME }}/laravel-app:${{ github.sha }}
+      # docker push ${{ secrets.DOCKER_HUB_USERNAME }}/laravel-app:${{ github.sha }}
 
       - name: Build and push React image
         run: |
-          docker build ./frontenddashboard -t ${{ secrets.DOCKER_HUB_USERNAME }}/react-app:${{ github.ref_name }}
-      #    docker push ${{ secrets.DOCKER_HUB_USERNAME }}/react-app:${{ github.ref_name }}
+          docker build ./frontenddashboard -t ${{ secrets.DOCKER_HUB_USERNAME }}/react-app:${{ github.sha }}
+      #    docker push ${{ secrets.DOCKER_HUB_USERNAME }}/react-app:${{ github.sha}}
 
       # - name: Deploy to server
       #   if: github.ref == 'refs/heads/main'
