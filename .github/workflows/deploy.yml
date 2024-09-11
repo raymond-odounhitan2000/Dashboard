@@ -14,25 +14,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      # 2. Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      #- name: Log in to Docker Hub
-      #  run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+      # 3. Debug environment variables (correction apportée)
+      - name: Debug environment variables
+        run: echo "Docker Hub Username: $DOCKER_HUB_USERNAME"
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
 
+      # 4. Build and push Laravel image
       - name: Build and push Laravel image
         run: |
           docker build ./dashbord_api -t ${{ secrets.DOCKER_HUB_USERNAME }}/laravel-app:${{ github.sha }}
-      # docker push ${{ secrets.DOCKER_HUB_USERNAME }}/laravel-app:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/laravel-app:${{ github.sha }}
 
+      # 5. Build and push React image
       - name: Build and push React image
         run: |
           docker build ./frontenddashboard -t ${{ secrets.DOCKER_HUB_USERNAME }}/react-app:${{ github.sha }}
-      #    docker push ${{ secrets.DOCKER_HUB_USERNAME }}/react-app:${{ github.sha}}
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/react-app:${{ github.sha }}
 
+      # 6. Deploy to production server (facultatif, activable)
       # - name: Deploy to server
       #   if: github.ref == 'refs/heads/main'
       #   uses: appleboy/ssh-action@master
@@ -44,9 +52,10 @@ jobs:
       #       docker-compose -f docker-compose.prod.yml pull
       #       docker-compose -f docker-compose.prod.yml up -d
 
+      # 7. Deploy to staging server (facultatif)
       # - name: Deploy to staging server
       #   if: github.ref == 'refs/heads/staging'
-      #   uses: appleboy/ssh-action@mastera
+      #   uses: appleboy/ssh-action@master
       #   with:
       #     host: ${{ secrets.STAGING_SERVER_HOST }}
       #     username: ${{ secrets.STAGING_SERVER_USER }}
