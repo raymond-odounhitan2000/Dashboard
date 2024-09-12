@@ -1,5 +1,5 @@
-# Étape 1: Utiliser l'image officielle de Node.js
-FROM node:16 AS build-stage
+# Étape 1: Utiliser l'image officielle de Node.js v18
+FROM node:18 AS build-stage
 
 # Étape 2: Définir le répertoire de travail dans le conteneur
 WORKDIR /app
