@@ -19,5 +19,5 @@ RUN npm run build
 # Étape 7: Exposer le port utilisé par le serveur
 EXPOSE 3000
 
-# Étape 8: Lancer le serveur pour servir l'application React
+ # Étape 8: Lancer le serveur pour servir l'application React
 CMD ["npx", "serve", "-s", "build", "-l", "3000"]
