@@ -50,8 +50,3 @@ jobs:
         docker tag frontendash ${{ secrets.DOCKER_HUB_USERNAME }}/frontendash
         docker push ${{ secrets.DOCKER_HUB_USERNAME }}/frontendash
 
-    - name: Deploy to Vercel
-      run: |
-        curl -X POST https://api.vercel.com/v1/integrations/deploy/Qm... \
-          -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
-          -d '{"gitSource": "github", "gitRepo": "your-github-username/my-react-app"}'
