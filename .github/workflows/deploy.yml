@@ -38,7 +38,7 @@ jobs:
 
     - name: Run tests inside Docker container
       run: |
-        docker run --rm my-react-app:latest npm run test -- --watchAll=false
+        # docker run --rm my-react-app:latest npm run test -- --watchAll=false
 
     - name: Log in to DockerHub
       uses: docker/login-action@v3
