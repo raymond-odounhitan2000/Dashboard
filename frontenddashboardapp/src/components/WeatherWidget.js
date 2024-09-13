@@ -13,10 +13,11 @@ const WeatherWidget = () => {
 
   const fetchWeatherData = async (city) => {
     try {
-      const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=2950bee37da9701ae7d405d5da459928`);
+      const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=2950bee37da9701ae7d405d5da459928`);
       setWeather(response.data);
       setError("");
     } catch (error) {
+      console.error("Error fetching weather data:", error);
       setError("Ville non trouvée");
     }
   };
