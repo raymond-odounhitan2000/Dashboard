@@ -22,17 +22,17 @@ const SpaceXLaunches = () => {
     }, []);
 
     return (
-        <div className="absolute top-2 left-2 lg:w-1/4 h-1/2 bg-white shadow-md rounded-lg overflow-hidden">
-            <div className="p-4 h-full flex flex-col bg-white bg-opacity-80">
-                <h2 className="text-2xl font-semibold mb-4">SpaceX Launches</h2>
+        <div className="p-4 bg-white shadow-md rounded-lg overflow-auto max-h-96">
+            <div className="h-full flex flex-col bg-white bg-opacity-80">
+                <h2 className="text-xl font-semibold mb-4">SpaceX Launches</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
                 {loading ? (
                     <p>Loading...</p>
                 ) : launches.length > 0 ? (
-                    <div className="overflow-y-auto flex-1 max-h-64">
+                    <div className="flex-1 overflow-y-auto">
                         <table className="table-auto w-full border-collapse border border-gray-400">
-                            <thead>
-                                <tr className="bg-gray-100">
+                            <thead className="bg-gray-100 text-gray-700">
+                                <tr>
                                     <th className="border border-gray-300 px-4 py-2">Mission Name</th>
                                     <th className="border border-gray-300 px-4 py-2">Launch Date</th>
                                     <th className="border border-gray-300 px-4 py-2">Launch Site</th>

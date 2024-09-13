@@ -19,12 +19,12 @@ const CurrencyWidget = () => {
     }, []);
 
     return (
-        <div className="absolute top-2 left-2 lg:w-1/4 h-1/2 bg-white shadow-md rounded-lg overflow-hidden">
-            <div className="p-4 h-full flex flex-col bg-white bg-opacity-80 overflow-y-auto">
+        <div className="p-4 bg-white shadow-md rounded-lg overflow-auto max-h-96"> {/* Limitation de la hauteur */}
+            <div className="h-full flex flex-col bg-white bg-opacity-80">
                 <h2 className="text-xl font-semibold mb-4">Currency Information</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
                 
-                <div className="flex-1 overflow-y-auto">
+                <div className="flex-1 overflow-y-auto"> {/* Défilement vertical */}
                     {currencies ? (
                         currencies.data.map(currency => (
                             <div key={currency.code} className="mb-4 border-b pb-2">

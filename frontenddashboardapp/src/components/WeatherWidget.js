@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { motion } from 'framer-motion';
 
 const WeatherWidget = () => {
   const [weather, setWeather] = useState(null);
-  const [city, setCity] = useState("Benin"); // Ville par défaut
+  const [city, setCity] = useState("Benin");
   const [error, setError] = useState("");
-
-//   const apiKey = '_API_KEY';
 
   useEffect(() => {
     fetchWeatherData(city);
@@ -28,32 +26,44 @@ const WeatherWidget = () => {
   };
 
   return (
-    <div className="weather-widget">
-      <h2>Météo Actuelle</h2>
-      <div className="city-input">
-        <input className='w-40 border-2 ml-4 mt-'
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 relative overflow-hidden"
+    >
+      <h2 className="text-2xl font-bold mb-4 text-blue-600">Météo Actuelle</h2>
+
+      <div className="mb-4 flex items-center">
+        <input
           type="text"
           value={city}
           onChange={handleCityChange}
-          placeholder="ville"
+          placeholder="Ville"
+          className="w-full border border-gray-300 rounded-lg py-2 px-3 text-gray-700 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <button className='border-4 bg-violet-400 ml-5 shadow-md' onClick={() => fetchWeatherData(city)}>Rechercher</button>
+        <button
+          className="bg-violet-500 text-white rounded-lg px-4 py-2 shadow-md hover:bg-violet-600 transition-colors duration-300"
+          onClick={() => fetchWeatherData(city)}
+        >
+          Rechercher
+        </button>
       </div>
 
       {weather ? (
-        <div className=" border-4 w-96 m-4 shadow-lg shadow-cyan-500/50 mt-10 ">
-          <h3>{weather.name}</h3>
-          <p>{weather.weather[0].description}</p>
-          <p>Température: {(weather.main.temp-273.15).toFixed(2)}°C</p>
-          <p>Humidité: {weather.main.humidity}%</p>
-          <p>Vent: {weather.wind.speed} m/s</p>
+        <div className="bg-gradient-to-r from-blue-200 via-blue-300 to-blue-400 p-4 rounded-lg shadow-md text-white">
+          <h3 className="text-xl font-semibold mb-2">{weather.name}</h3>
+          <p className="mb-1">Description: {weather.weather[0].description}</p>
+          <p className="mb-1">Température: {(weather.main.temp - 273.15).toFixed(2)}°C</p>
+          <p className="mb-1">Humidité: {weather.main.humidity}%</p>
+          <p className="mb-1">Vent: {weather.wind.speed} m/s</p>
         </div>
       ) : error ? (
-        <p className="error">{error}</p>
+        <p className="text-red-500">{error}</p>
       ) : (
         <p>Chargement...</p>
       )}
-    </div>
+    </motion.div>
   );
 };
 
